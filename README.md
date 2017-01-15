@@ -1,5 +1,10 @@
 # announcements
 
+# make server listen to IP instead of localhost
+```
+export ASPNETCORE_URLS="http://192.168.1.144:5000"
+```
+
 # setup wireless on Toshiba
 
 check what device is available
