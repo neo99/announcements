@@ -1,4 +1,7 @@
-# announcements
+# how to run
+run `dotnet restore` then `dotnet run` in `src` folder
+
+open `doc/examples/basic/index.html`
 
 # make server listen to IP instead of localhost
 ```
