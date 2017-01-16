@@ -7,13 +7,27 @@ using Announcements.Models;
 
 namespace Announcements.Controllers
 {
-    [Route("api/[controller]")]
     public class HomeController : Controller
     {
+        IEnumerable<Announcement> announcementList = new Announcement[] {new Announcement("new release on Feb 2, 2017"), new Announcement("emergency fix on Feb 1, 2017")};
+
+    	[Route("api/{id}.json")]
         [HttpGet]
-        public IEnumerable<Announcement> Get()
+        public IEnumerable<Announcement> GetJSON()
         {
-            return new Announcement[] {new Announcement("new release on Feb 2, 2017"), new Announcement("emergency fix on Feb 1, 2017")};
+            return announcementList;
+        }
+
+    	[Route("api/{id}.js")]
+        [HttpGet]
+        public string GetJS()
+        {
+            string result = "";
+            foreach(Announcement a in announcementList)
+            {
+                result += "document.write(\"<div>" + a.Content + "</div>\");";
+            }
+            return result;
         }
     }
 }
