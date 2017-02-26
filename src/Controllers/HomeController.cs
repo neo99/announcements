@@ -4,18 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Announcements.Models;
+using Announcements.Services;
 
 namespace Announcements.Controllers
 {
     public class HomeController : Controller
     {
-        IEnumerable<Announcement> announcementList = new Announcement[] {new Announcement("new release on Feb 2, 2017"), new Announcement("emergency fix on Feb 1, 2017")};
+        AnnouncementService service = new AnnouncementService();
 
     	[Route("api/{id}.json")]
         [HttpGet]
         public IEnumerable<Announcement> GetJSON()
         {
-            return announcementList;
+            return service.List();
         }
 
     	[Route("api/{id}.js")]
@@ -23,6 +24,7 @@ namespace Announcements.Controllers
         public string GetJS()
         {
             string result = "";
+            IEnumerable<Announcement> announcementList = service.List();
             foreach(Announcement a in announcementList)
             {
                 result += "document.write(\"<div>" + a.Content + "</div>\");";
