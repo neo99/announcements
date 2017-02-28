@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MySql.Data.MySqlClient;
 using Microsoft.Data.Sqlite;
 using System.Data.Common;
 using System.Data;
@@ -11,8 +12,8 @@ namespace Announcements.Services
     {
         public IEnumerable<Announcement> List()
         {
-                    Console.WriteLine("aaa");
-            using (SqliteConnection conn = new SqliteConnection("Data Source=/Users/nwang/Sites/announcements/doc/database/sqlite/announcements.db;FailIfMissing=True;"))
+            Console.WriteLine("aaa");
+            using (SqliteConnection conn = new SqliteConnection("Data Source=/Users/nwang/Sites/announcements/doc/database/sqlite/announcements.db;"))
             {
                 List<Announcement> result = new List<Announcement>();
                 conn.Open();
@@ -29,15 +30,41 @@ namespace Announcements.Services
                 }
                 return result;
             }
-                    Console.WriteLine("ccc");
+            Console.WriteLine("ccc");
+        }
+
+        public IEnumerable<Announcement> List2()
+        {
+                    Console.WriteLine("aaa");
+            using (MySqlConnection conn = new MySqlConnection())
+            {
+                conn.ConnectionString = "Datasource=localhost;Database=announcements;uid=root;pwd=;";
+                    Console.WriteLine("conn");
+                List<Announcement> result = new List<Announcement>();
+                conn.Open();
+                    Console.WriteLine("Sesame open");
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = "select * from t_announcements";
+                IDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    Console.WriteLine("bbb");
+                    string content = dr.GetString(dr.GetOrdinal("content"));
+                    Console.WriteLine(content);
+                    Announcement a = new Announcement(content);
+                    result.Add(a);
+                }
+                return result;
+            }
         }
 
         public Announcement Get()
         {
-            using (SqliteConnection conn = new SqliteConnection("Data Source=/Users/nwang/Sites/announcements/doc/database/sqlite/announcements.db;FailIfMissing=True;"))
+            using (MySqlConnection conn = new MySqlConnection())
             {
+                conn.ConnectionString = "Datasource=localhost;Database=announcements;uid=root;pwd;";
                 conn.Open();
-                SqliteCommand cmd = conn.CreateCommand();
+                MySqlCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "select * from t_announcements";
                 IDataReader dr = cmd.ExecuteReader();
                 if (dr.Read())

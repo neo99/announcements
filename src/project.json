@@ -8,9 +8,12 @@
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.0",
     "Microsoft.AspNetCore.StaticFiles": "1.0.0",
     "Microsoft.AspNetCore.Mvc": "1.0.0",
+    "Microsoft.AspNetCore.Diagnostics": "1.1.0",
+    "Microsoft.Extensions.Logging.Console": "1.1.0",
     "NETStandard.Library": "1.6.1",
     "System.Data.SqlClient": "4.1.0",
     "Microsoft.Data.Sqlite": "1.1.0",
+    "MySql.Data": "7.0.6-IR31",
   },
   "frameworks": {
     "netcoreapp1.0": {
@@ -21,5 +24,6 @@
         }
       }
     }
-  }
+  },
+  "net461": {}
 }
