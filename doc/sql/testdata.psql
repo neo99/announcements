@@ -1,0 +1,1 @@
+insert into t_announcements (content, start_date, end_date, created_date) values ('emergency spillway failure! evacuation!', '2017-01-03', '2017-04-01', now());

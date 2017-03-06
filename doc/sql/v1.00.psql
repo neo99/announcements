@@ -1,0 +1,9 @@
+create sequence t_announcements_id;
+
+create table t_announcements (
+	id integer primary key default nextval('t_announcements_id'),
+	content varchar(2500) not null,
+	start_date timestamp,
+	end_date timestamp,
+	created_date timestamp
+);
