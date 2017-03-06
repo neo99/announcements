@@ -5,12 +5,34 @@ using System.Data.Common;
 using System.Data;
 using System;
 using Announcements.Models;
+using Npgsql;
 
 namespace Announcements.Services
 {
     public class AnnouncementService
     {
         public IEnumerable<Announcement> List()
+        {
+            Console.WriteLine("aaa");
+            using (NpgsqlConnection conn = new NpgsqlConnection("Server=127.0.0.1;Database=announcements;IntegratedSecurity=true;"))
+            {
+                List<Announcement> result = new List<Announcement>();
+                conn.Open();
+                NpgsqlCommand cmd = new NpgsqlCommand("select * from t_announcements", conn);
+                IDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    Console.WriteLine("bbb");
+                    string content = dr.GetString(dr.GetOrdinal("content"));
+                    Console.WriteLine(content);
+                    Announcement a = new Announcement(content);
+                    result.Add(a);
+                }
+                return result;
+            }
+        }
+
+        public IEnumerable<Announcement> ListSqlite()
         {
             Console.WriteLine("aaa");
             using (SqliteConnection conn = new SqliteConnection("Data Source=/Users/nwang/Sites/announcements/doc/database/sqlite/announcements.db;"))
@@ -30,7 +52,6 @@ namespace Announcements.Services
                 }
                 return result;
             }
-            Console.WriteLine("ccc");
         }
 
         public IEnumerable<Announcement> List2()
