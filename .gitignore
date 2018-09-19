@@ -1,4 +1,3 @@
 **/*.swp
-src/bin/
-src/obj/
-src/project.lock.json
+bin/
+obj/
