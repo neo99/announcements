@@ -1,0 +1,9 @@
+@model IEnumerable<AnnouncementApp.Models.Announcement>
+
+@{
+    Layout = "_BlankLayout";
+}
+
+@foreach (var item in Model) {
+    WriteLiteral( "document.write(\"" + item.Content.Replace("\"", "\\\"") + "\");" );
+}
